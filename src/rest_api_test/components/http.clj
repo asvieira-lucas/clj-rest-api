@@ -5,11 +5,18 @@
             [io.pedestal.http.route :as route]
             [rest-api-test.db.config :as db.config]
             [rest-api-test.interceptors.db :as interceptors.db]
-            [rest-api-test.interceptors.now :as interceptors.now]))
+            [rest-api-test.interceptors.error :as interceptors.error]
+            [rest-api-test.interceptors.now :as interceptors.now]
+            [rest-api-test.interceptors.req-coercer :as interceptors.req-coercer]))
 
 (defn- route
-  [[route-name {:keys [path method interceptors handler] :or {interceptors []}}]]
-  [path method (conj interceptors handler) :route-name route-name])
+  [[route-name
+    {:keys [path method interceptors handler req-schema res-schema] :or {interceptors []}}]]
+  (let [interceptors (cond-> interceptors
+                             #_#_res-schema (conj (res-coercer res-schema))
+                             req-schema (conj (interceptors.req-coercer/interceptor req-schema))
+                             (constantly true) (conj handler))]
+    [path method interceptors :route-name route-name]))
 
 (defn- expanded-routes
   [routes]
@@ -30,6 +37,7 @@
   [db routes]
   (-> (base-server routes)
       http/default-interceptors
+      (update ::http/interceptors conj interceptors.error/req-coercer-error)
       (update ::http/interceptors conj http/json-body)
       (update ::http/interceptors conj (interceptors.body-params/body-params))
       (update ::http/interceptors conj interceptors.now/interceptor)

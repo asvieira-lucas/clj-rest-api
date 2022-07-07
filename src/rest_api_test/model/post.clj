@@ -6,6 +6,7 @@
   (> (count str) length))
 
 (s/defschema Post
+  #:post
   {:id         s/Uuid
    :title      (s/constrained s/Str (partial str-long-enough? 5))
    :content    (s/constrained s/Str (partial str-long-enough? 50))

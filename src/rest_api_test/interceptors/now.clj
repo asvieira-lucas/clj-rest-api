@@ -1,6 +1,6 @@
 (ns rest-api-test.interceptors.now
   (:require [io.pedestal.interceptor :as interceptor])
-  (:import [java.time Instant]))
+  (:import (java.time Instant)))
 
 (def interceptor
   (interceptor/interceptor
