@@ -1,4 +1,4 @@
-/target
+\/target
 /classes
 /checkouts
 profiles.clj
@@ -11,3 +11,4 @@ pom.xml.asc
 .hgignore
 .hg/
 *.iml
+.
