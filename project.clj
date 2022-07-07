@@ -12,5 +12,6 @@
                  [io.pedestal/pedestal.jetty "0.5.10"]
                  [io.pedestal/pedestal.immutant "0.5.10"]
                  [hikari-cp "2.14.0"]
-                 [prismatic/schema "1.3.0"]]
+                 [prismatic/schema "1.3.0"]
+                 [cheshire "5.11.0"]]
   :repl-options {:init-ns user})
