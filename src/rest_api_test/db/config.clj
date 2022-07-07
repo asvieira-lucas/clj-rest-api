@@ -11,5 +11,4 @@
 (defn load-tables!
   [db]
   (let [tables-stmt (tables-file)]
-    (println tables-stmt)
     (jdbc/execute! (db) [tables-stmt])))

@@ -8,4 +8,10 @@
    :body   (-> req
                (adapters.post/request->model now)
                (controllers.post/create! db)
-               rest-api-test.adapters.post/model->response)})
+               adapters.post/model->response)})
+
+(defn list-posts
+  [{:keys [db]}]
+  {:status 200
+   :body   (->> (controllers.post/find-all db)
+                (map adapters.post/model->response))})

@@ -17,4 +17,8 @@
                  :method     :post
                  :req-schema in.post/PostRequest
                  :res-schema {201 out.post/PostResponse}
-                 :handler    http-in/create-post!}})
+                 :handler    http-in/create-post!}
+   :list-posts  {:path       "/posts"
+                 :method     :get
+                 :res-schema {200 [out.post/PostResponse]}
+                 :handler    http-in/list-posts}})

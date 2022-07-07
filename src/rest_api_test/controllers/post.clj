@@ -5,3 +5,7 @@
   [post db]
   (doto post
     (db.post/insert! db)))
+
+(defn find-all
+  [db]
+  (db.post/find-all db))
